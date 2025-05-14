@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Recipe Cost Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label, select, button {
+            margin: 10px 0;
+            display: block;
+            width: 100%;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e7f7e7;
+            border: 1px solid #d1f1d1;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Find the Cheapest Store for Your Recipe</h1>
+    <div>
+        <label for="recipeInput">Enter Recipe Ingredients (JSON format):</label>
+        <textarea id="recipeInput" placeholder='{"sugar": 3, "flour": 2, "butter": 1, "eggs": 4, "milk": 2}' rows="5"></textarea>
+    </div>
+    <button onclick="findCheapestStore()">Find Cheapest Store</button>
+
+    <div id="results" class="results"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
