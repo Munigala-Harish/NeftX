@@ -1,0 +1,59 @@
+// Simulated store data (can be replaced with real database queries)
+const stores = [
+    { name: 'Store1', discounts: { sugar: 2, flour: 3, butter: 1, eggs: 1.5, milk: 1 } },
+    { name: 'Store2', discounts: { sugar: 1.5, flour: 2, butter: 1, eggs: 2, milk: 1.5 } },
+    { name: 'Store3', discounts: { sugar: 2, flour: 2.5, butter: 1.2, eggs: 1.5, milk: 1.8 } },
+    { name: 'Store4', discounts: { sugar: 1.8, flour: 3, butter: 0.8, eggs: 1.3, milk: 2 } },
+    { name: 'Store5', discounts: { sugar: 2.5, flour: 2.2, butter: 1, eggs: 1.6, milk: 1.2 } }
+];
+
+// Function to calculate the total cost of a recipe at a store
+function calculateCost(store, recipe) {
+    let totalCost = 0;
+    for (let ingredient in recipe) {
+        if (store.discounts[ingredient]) {
+            totalCost += store.discounts[ingredient] * recipe[ingredient];
+        }
+    }
+    return totalCost;
+}
+
+// Function to find the cheapest store(s) for the recipe
+function findCheapestStore() {
+    const recipeInput = document.getElementById('recipeInput').value;
+    let recipe;
+
+    try {
+        recipe = JSON.parse(recipeInput); // Parse the recipe input from JSON format
+    } catch (error) {
+        displayResults('Invalid JSON input. Please enter a valid JSON object for the recipe.');
+        return;
+    }
+
+    let minCost = Infinity;
+    let cheapestStores = [];
+
+    // Calculate the cost for each store and track the minimum cost
+    for (let store of stores) {
+        const cost = calculateCost(store, recipe);
+        if (cost < minCost) {
+            minCost = cost;
+            cheapestStores = [store.name]; // Reset the list with the new cheapest store
+        } else if (cost === minCost) {
+            cheapestStores.push(store.name); // Add store if it has the same minimum cost
+        }
+    }
+
+    // Display results
+    if (cheapestStores.length === 0) {
+        displayResults('No store can fulfill the recipe with available discounts.');
+    } else {
+        displayResults(`The cheapest store(s) for the recipe are: ${cheapestStores.join(', ')} with a cost of $${minCost.toFixed(2)}.`);
+    }
+}
+
+// Function to display results on the UI
+function displayResults(message) {
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = message;
+}
